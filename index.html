@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MemoFlow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header Mobile -->
+  <header class="app-header">
+    <div class="logo">MemoFlow</div>
+    <span class="badge-pro" id="proBadge">Pass Étudiant</span>
+  </header>
+
+  <!-- Zone de contenu -->
+  <main class="app-content">
+    
+    <!-- Onglet 1: Génération / Ajout -->
+    <section id="view-create" class="tab-content">
+      <h2>Créer des Fiches</h2>
+      <div class="card">
+        <label for="courseText">Collez votre cours ou vos notes :</label>
+        <textarea id="courseText" placeholder="Ex: La Révolution Française débute en 1789..."></textarea>
+        
+        <div class="upload-zone">
+          <span>📷 Scanner / Déposer un PDF</span>
+          <small>(Nécessite le Pass Étudiant)</small>
+        </div>
+
+        <button id="btnGenerate" class="btn-primary">⚡ Générer les fiches IA</button>
+      </div>
+    </section>
+
+    <!-- Onglet 2: Choix du Thème & Session de Révision -->
+    <section id="view-review" class="tab-content active">
+      
+      <!-- Écran A: Sélection des thèmes -->
+      <div id="themes-screen">
+        <h2>Sélectionnez un Thème</h2>
+        <p class="subtitle">25 thèmes disponibles (5 gratuits)</p>
+        <div class="themes-grid" id="themesGrid">
+          <!-- Les 25 cases seront générées dynamiquement en JS -->
+        </div>
+      </div>
+
+      <!-- Écran B: Interface de session Flashcards -->
+      <div id="session-screen" class="hidden">
+        <div class="session-header">
+          <button id="btnBackToThemes" class="btn-back">⬅ Thèmes</button>
+          <span id="sessionProgress" class="progress-pill">Restantes : 20</span>
+        </div>
+
+        <h3 id="currentThemeTitle" class="theme-active-title">Thème</h3>
+
+        <div class="flashcard-container">
+          <div class="flashcard" id="flashcard">
+            <div class="card-face card-front" id="cardFront">Appuyez pour retourner</div>
+            <div class="card-face card-back" id="cardBack">La réponse s'affiche ici</div>
+          </div>
+        </div>
+        
+        <p class="swipe-hint">💡 Cliquez sur la carte pour voir le verso</p>
+
+        <div class="srs-buttons">
+          <button class="btn-fail" id="btnFail">❌ Non acquis</button>
+          <button class="btn-pass" id="btnPass">✅ Acquis</button>
+        </div>
+      </div>
+
+      <!-- Écran C: Fin de session -->
+      <div id="complete-screen" class="hidden card complete-card">
+         🎉
+        <h3>Session terminée !</h3>
+        <p>Toutes les cartes de cette session ont été assimilées avec succès.</p>
+        <button id="btnFinishSession" class="btn-primary">Retour aux thèmes</button>
+      </div>
+
+    </section>
+
+    <!-- Onglet 3: Examen & Planning -->
+    <section id="view-plan" class="tab-content">
+      <h2>Planning Examen</h2>
+      <div class="card">
+        <label for="examDate">Date de l'épreuve :</label>
+        <input type="date" id="examDate" />
+        <div id="planResult" class="info-box">
+          Indiquez la date de vos épreuves pour calculer votre objectif quotidien.
+        </div>
+      </div>
+    </section>
+
+    <!-- Onglet 4: Mon Pass (Abonnement) -->
+    <section id="view-pricing" class="tab-content">
+      <h2>Abonnement</h2>
+      
+      <div class="price-cards-stack">
+        <!-- Offre Mensuelle -->
+        <div class="price-card">
+          <h3>Pass Mensuel</h3>
+          <div class="price">5,99 € <span>/ mois</span></div>
+          <ul>
+            <li>Déblocage des 25 thèmes</li>
+            <li>Génération IA depuis PDF & Photos</li>
+            <li>Mode hors-ligne</li>
+          </ul>
+          <button class="btn-secondary">Choisir le Mensuel</button>
+        </div>
+
+        <!-- Offre Annuelle -->
+        <div class="price-card featured">
+          <div class="ribbon">Meilleure offre</div>
+          <h3>Pass Annuel</h3>
+          <div class="price">50 € <span>/ an</span></div>
+          <p class="savings-text">Économisez plus de 30% par an !</p>
+          <ul>
+            <li>Accès illimité aux 25 thèmes</li>
+            <li>Génération IA illimitée</li>
+            <li>Statistiques avancées</li>
+            <li>Support prioritaire</li>
+          </ul>
+          <button class="btn-primary">Activer le Pass Annuel (50€)</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Navigation Basse -->
+  <nav class="bottom-nav">
+    <button class="nav-item" data-tab="view-create">
+      <span class="nav-icon">📝</span>
+      <span class="nav-label">Créer</span>
+    </button>
+    <button class="nav-item active" data-tab="view-review">
+      <span class="nav-icon">🎴</span>
+      <span class="nav-label">Réviser</span>
+    </button>
+    <button class="nav-item" data-tab="view-plan">
+      <span class="nav-icon">📅</span>
+      <span class="nav-label">Examens</span>
+    </button>
+    <button class="nav-item" data-tab="view-pricing">
+      <span class="nav-icon">⭐</span>
+      <span class="nav-label">Pass</span>
+    </button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
