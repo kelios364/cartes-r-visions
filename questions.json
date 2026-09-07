@@ -1,0 +1,57 @@
+[
+  {
+    "id": 0,
+    "title": "Histoire - Révolution",
+    "cards": [
+      { "id": "0-1", "q": "Quelle est la date de la prise de la Bastille ?", "a": "14 juillet 1789" },
+      { "id": "0-2", "q": "Quel texte fondamental est voté le 26 août 1789 ?", "a": "La Déclaration des Droits de l'Homme et du Citoyen (DDHC)" },
+      { "id": "0-3", "q": "Quand la Ire République est-elle proclamée ?", "a": "22 septembre 1792" },
+      { "id": "0-4", "q": "Quel événement met fin à la Terreur en juillet 1794 ?", "a": "La chute et l'exécution de Robespierre (9 Thermidor)" },
+      { "id": "0-5", "q": "Quel coup d'État d'Abonnaparte met fin au Directoire ?", "a": "Le coup d'État du 18 Brumaire (9 novembre 1799)" }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Maths - Dérivées & Intégrales",
+    "cards": [
+      { "id": "1-1", "q": "Quelle est la dérivée de f(x) = xⁿ ?", "a": "f'(x) = n · xⁿ⁻¹" },
+      { "id": "1-2", "q": "Quelle est la dérivée de f(x) = eˣ ?", "a": "f'(x) = eˣ" },
+      { "id": "1-3", "q": "Quelle est la dérivée de f(x) = ln(x) ?", "a": "f'(x) = 1 / x" },
+      { "id": "1-4", "q": "Que vaut l'intégrale ∫ (1/x) dx ?", "a": "ln|x| + C" },
+      { "id": "1-5", "q": "Formule de la dérivée d'un produit (u · v)' ?", "a": "u'v + uv'" }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Physique - Mécanique",
+    "cards": [
+      { "id": "2-1", "q": "Enoncer la 2e loi de Newton (Principe fondamental de la dynamique)", "a": "Σ F = m · a" },
+      { "id": "2-2", "q": "Quelle est l'unité de la force dans le système international ?", "a": "Le Newton (N), équivalent à kg·m·s⁻²" },
+      { "id": "2-3", "q": "Formule de l'énergie cinétique (Ec) ?", "a": "Ec = ½ · m · v²" },
+      { "id": "2-4", "q": "Formule du travail d'une force constante W(F) ?", "a": "W(F) = F · d · cos(θ)" },
+      { "id": "2-5", "q": "Qu'est-ce que la 3e loi de Newton ?", "a": "Le principe des actions réciproques (F_A/B = -F_B/A)" }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Philosophie - La Conscience",
+    "cards": [
+      { "id": "3-1", "q": "Qui est l'auteur de la célèbre formule « Je pense donc je suis » ?", "a": "René Descartes (Discours de la méthode, 1637)" },
+      { "id": "3-2", "q": "Qu'est-ce que l'intentionnalité selon Husserl ?", "a": "Le principe selon lequel « toute conscience est conscience de quelque chose »" },
+      { "id": "3-3", "q": "Qui a théorisé l'Inconscient pour critiquer la souveraineté de la conscience ?", "a": "Sigmund Freud" },
+      { "id": "3-4", "q": "Selon Kant, que permet la conscience morale ?", "a": "De distinguer le bien du mal via l'impératif catégorique" },
+      { "id": "3-5", "q": "Quelle est la définition étymologique de « conscience » (cum scientia) ?", "a": "« Avec savoir » ou « accompagné de connaissance »" }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "SVT - Génétique & ADN",
+    "cards": [
+      { "id": "4-1", "q": "Quelles sont les 4 bases azotées de l'ADN ?", "a": "Adénine (A), Thymine (T), Cytosine (C), Guanine (G)" },
+      { "id": "4-2", "q": "Par quoi la Thymine est-elle remplacée dans l'ARN ?", "a": "Par l'Uracile (U)" },
+      { "id": "4-3", "q": "Quel processus permet de passer de l'ADN à l'ARNm ?", "a": "La transcription" },
+      { "id": "4-4", "q": "Où se déroule la traduction de l'ARNm en protéine ?", "a": "Dans le cytoplasme, au niveau des ribosomes" },
+      { "id": "4-5", "q": "Qu'est-ce qu'un allèle ?", "a": "Une version différente d'un même gène" }
+    ]
+  }
+]

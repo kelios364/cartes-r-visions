@@ -45,10 +45,13 @@ body {
 
 .badge-pro {
   background: linear-gradient(135deg, #6366f1, #a855f7);
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 700;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 .app-content {
@@ -203,6 +206,7 @@ button {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.4s ease;
+  cursor: pointer;
 }
 
 .flashcard.flipped { transform: rotateY(180deg); }
@@ -258,7 +262,7 @@ button {
   background-color: rgba(99, 102, 241, 0.1);
   padding: 1rem;
   border-radius: 10px;
-  color: var(--text-muted);
+  color: var(--text);
   font-size: 0.9rem;
 }
 
@@ -325,6 +329,7 @@ li::before { content: "✓ "; color: var(--accent); }
   font-size: 0.75rem;
   padding: 0.25rem;
   width: auto;
+  cursor: pointer;
 }
 
 .nav-item.active { color: var(--accent); }

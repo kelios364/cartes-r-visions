@@ -1,149 +1,181 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>MemoFlow</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards Pass Étudiant</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Header Mobile -->
+  <!-- EN-TÊTE -->
   <header class="app-header">
-    <div class="logo">MemoFlow</div>
-    <span class="badge-pro" id="proBadge">Pass Étudiant</span>
+    <div class="logo">FlashStudy</div>
+    <button id="proBadge" class="badge-pro" title="Cliquer pour basculer le Pass en mode test">
+      Pass Étudiant
+    </button>
   </header>
 
-  <!-- Zone de contenu -->
   <main class="app-content">
-    
-    <!-- Onglet 1: Génération / Ajout -->
-    <section id="view-create" class="tab-content">
-      <h2>Créer des Fiches</h2>
-      <div class="card">
-        <label for="courseText">Collez votre cours ou vos notes :</label>
-        <textarea id="courseText" placeholder="Ex: La Révolution Française débute en 1789..."></textarea>
-        
-        <div class="upload-zone">
-          <span>📷 Scanner / Déposer un PDF</span>
-          <small>(Nécessite le Pass Étudiant)</small>
-        </div>
 
-        <button id="btnGenerate" class="btn-primary">⚡ Générer les fiches IA</button>
+    <!-- SECTION 1 : SCANNER ET CRÉATION DE FICHES -->
+    <section id="view-scan" class="tab-content">
+      <h2>Scanner un cours</h2>
+      <p class="subtitle">Prenez en photo ou importez votre cours pour créer des fiches de révision instantanées.</p>
+
+      <div class="card">
+        <div class="upload-zone">
+          <p>📷 Importez une image / PDF ou prenez une photo</p>
+          <input type="file" id="scanInput" accept="image/*,.pdf">
+        </div>
+        <p class="subtitle">ou collez directement votre cours :</p>
+        <textarea id="courseText" placeholder="Collez le texte de votre cours ici..."></textarea>
+        
+        <button id="btnGenerateCards" class="btn-primary">Générer mes fiches de révision</button>
+      </div>
+
+      <div id="scanResult" class="card hidden">
+        <h3>Fiche générée !</h3>
+        <p id="generatedCardsContent" class="info-box" style="margin-top: 1rem;"></p>
       </div>
     </section>
 
-    <!-- Onglet 2: Choix du Thème & Session de Révision -->
-    <section id="view-review" class="tab-content active">
-      
-      <!-- Écran A: Sélection des thèmes -->
+    <!-- SECTION 2 : CATALOGUE DES THÈMES & FLASHCARDS -->
+    <section id="view-themes" class="tab-content active">
+
+      <!-- ECRAN A : GRILLE DE SÉLECTION DES THÈMES -->
       <div id="themes-screen">
-        <h2>Sélectionnez un Thème</h2>
-        <p class="subtitle">25 thèmes disponibles (5 gratuits)</p>
-        <div class="themes-grid" id="themesGrid">
-          <!-- Les 25 cases seront générées dynamiquement en JS -->
-        </div>
+        <h2>Thèmes d'étude</h2>
+        <p class="subtitle">5 thèmes gratuits • 20 thèmes réservés au Pass Étudiant</p>
+        <div id="themesGrid" class="themes-grid"></div>
       </div>
 
-      <!-- Écran B: Interface de session Flashcards -->
+      <!-- ECRAN B : INTERFACE DE RÉVISION (SESSION FLASHCARD) -->
       <div id="session-screen" class="hidden">
         <div class="session-header">
-          <button id="btnBackToThemes" class="btn-back">⬅ Thèmes</button>
+          <button id="btnBackToThemes" class="btn-back">← Retour</button>
           <span id="sessionProgress" class="progress-pill">Restantes : 20</span>
         </div>
 
-        <h3 id="currentThemeTitle" class="theme-active-title">Thème</h3>
+        <h3 id="currentThemeTitle" class="theme-active-title">Titre du thème</h3>
 
+        <!-- CARTE ROTATIVE -->
         <div class="flashcard-container">
-          <div class="flashcard" id="flashcard">
-            <div class="card-face card-front" id="cardFront">Appuyez pour retourner</div>
-            <div class="card-face card-back" id="cardBack">La réponse s'affiche ici</div>
+          <div id="flashcard" class="flashcard">
+            <div id="cardFront" class="card-face card-front">Chargement de la question...</div>
+            <div id="cardBack" class="card-face card-back">Chargement de la réponse...</div>
           </div>
         </div>
-        
-        <p class="swipe-hint">💡 Cliquez sur la carte pour voir le verso</p>
 
+        <p class="swipe-hint">Cliquez sur la carte pour afficher la réponse</p>
+
+        <!-- COMMANDES DE VALIDATION -->
         <div class="srs-buttons">
-          <button class="btn-fail" id="btnFail">❌ Non acquis</button>
-          <button class="btn-pass" id="btnPass">✅ Acquis</button>
+          <button id="btnFail" class="btn-fail">❌ À revoir</button>
+          <button id="btnPass" class="btn-pass">✅ Acquis</button>
         </div>
       </div>
 
-      <!-- Écran C: Fin de session -->
-      <div id="complete-screen" class="hidden card complete-card">
-         🎉
+      <!-- ECRAN C : FIN DE SESSION -->
+      <div id="complete-screen" class="hidden complete-card card">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
         <h3>Session terminée !</h3>
-        <p>Toutes les cartes de cette session ont été assimilées avec succès.</p>
+        <p>Vous avez révisé toutes les cartes de ce paquet.</p>
         <button id="btnFinishSession" class="btn-primary">Retour aux thèmes</button>
       </div>
 
     </section>
 
-    <!-- Onglet 3: Examen & Planning -->
-    <section id="view-plan" class="tab-content">
-      <h2>Planning Examen</h2>
+    <!-- SECTION 3 : PLANIFICATEUR D'EXAMEN -->
+    <section id="view-planner" class="tab-content">
+      <h2>Planificateur d'Examen</h2>
+      <p class="subtitle">Organisez votre rythme quotidien pour être prêt le jour J.</p>
+
       <div class="card">
-        <label for="examDate">Date de l'épreuve :</label>
-        <input type="date" id="examDate" />
-        <div id="planResult" class="info-box">
-          Indiquez la date de vos épreuves pour calculer votre objectif quotidien.
-        </div>
+        <label for="examDate"><strong>Date de votre examen :</strong></label>
+        <input type="date" id="examDate">
+
+        <label for="totalCardsInput"><strong>Nombre total de cartes à réviser :</strong></label>
+        <input type="number" id="totalCardsInput" value="100" min="1">
+
+        <button id="btnCalculatePlan" class="btn-primary">Calculer mon objectif quotidien</button>
+      </div>
+
+      <div id="plannerResult" class="card hidden">
+        <h3>Votre Objectif Quotidien</h3>
+        <p id="plannerOutput" style="margin-top: 0.75rem; font-size: 1.1rem; line-height: 1.5;"></p>
       </div>
     </section>
 
-    <!-- Onglet 4: Mon Pass (Abonnement) -->
+    <!-- SECTION 4 : TARIFS & PASS ÉTUDIANT -->
     <section id="view-pricing" class="tab-content">
-      <h2>Abonnement</h2>
-      
+      <h2>Offres Pass Étudiant</h2>
+      <p class="subtitle">Débloquez l'accès illimité aux 25 thèmes et au scanner IA de cours.</p>
+
       <div class="price-cards-stack">
-        <!-- Offre Mensuelle -->
+        
+        <!-- OFFRE MENSUELLE -->
         <div class="price-card">
-          <h3>Pass Mensuel</h3>
-          <div class="price">5,99 € <span>/ mois</span></div>
+          <h3>Mensuel</h3>
+          <p class="price">5 € <span>/ mois</span></p>
           <ul>
-            <li>Déblocage des 25 thèmes</li>
-            <li>Génération IA depuis PDF & Photos</li>
-            <li>Mode hors-ligne</li>
+            <li>Accès aux 25 thèmes d'étude</li>
+            <li>Génération de fiches via Scanner</li>
+            <li>Répétition espacée dynamique</li>
           </ul>
-          <button class="btn-secondary">Choisir le Mensuel</button>
+          <button class="btn-secondary" onclick="togglePassEtudiant()">S'abonner (5€/mois)</button>
         </div>
 
-        <!-- Offre Annuelle -->
+        <!-- OFFRE 3 MOIS -->
         <div class="price-card featured">
-          <div class="ribbon">Meilleure offre</div>
-          <h3>Pass Annuel</h3>
-          <div class="price">50 € <span>/ an</span></div>
-          <p class="savings-text">Économisez plus de 30% par an !</p>
+          <span class="ribbon">-20 % REDUCTION</span>
+          <h3>Trimestriel (3 Mois)</h3>
+          <p class="price">12 € <span>/ 3 mois</span></p>
+          <p class="savings-text">Soit 4,00 € par mois (Économisez 3 €)</p>
           <ul>
-            <li>Accès illimité aux 25 thèmes</li>
-            <li>Génération IA illimitée</li>
-            <li>Statistiques avancées</li>
+            <li>Toutes les fonctionnalités incluses</li>
+            <li>Économie immédiate de 20 %</li>
+            <li>Mises à jour des cours garanties</li>
+          </ul>
+          <button class="btn-primary" onclick="togglePassEtudiant()">Choisir l'offre 3 mois</button>
+        </div>
+
+        <!-- OFFRE 12 MOIS -->
+        <div class="price-card featured">
+          <span class="ribbon">-33 % REDUCTION</span>
+          <h3>Annuel (12 Mois)</h3>
+          <p class="price">40 € <span>/ an</span></p>
+          <p class="savings-text">Soit 3,33 € par mois (Économisez 20 €)</p>
+          <ul>
+            <li>Accès illimité toute l'année scolaire</li>
+            <li>Meilleure offre (-33 % de réduction)</li>
             <li>Support prioritaire</li>
           </ul>
-          <button class="btn-primary">Activer le Pass Annuel (50€)</button>
+          <button class="btn-primary" onclick="togglePassEtudiant()">Profiter de l'offre 1 an</button>
         </div>
+
       </div>
     </section>
 
   </main>
 
-  <!-- Navigation Basse -->
+  <!-- NAVIGATION BASSE MOBILE (4 ONGLETS) -->
   <nav class="bottom-nav">
-    <button class="nav-item" data-tab="view-create">
-      <span class="nav-icon">📝</span>
-      <span class="nav-label">Créer</span>
+    <button class="nav-item" data-tab="view-scan">
+      <span class="nav-icon">📷</span>
+      <span>Scan Cours</span>
     </button>
-    <button class="nav-item active" data-tab="view-review">
-      <span class="nav-icon">🎴</span>
-      <span class="nav-label">Réviser</span>
+    <button class="nav-item active" data-tab="view-themes">
+      <span class="nav-icon">📚</span>
+      <span>Thèmes</span>
     </button>
-    <button class="nav-item" data-tab="view-plan">
+    <button class="nav-item" data-tab="view-planner">
       <span class="nav-icon">📅</span>
-      <span class="nav-label">Examens</span>
+      <span>Plan Exam</span>
     </button>
     <button class="nav-item" data-tab="view-pricing">
-      <span class="nav-icon">⭐</span>
-      <span class="nav-label">Pass</span>
+      <span class="nav-icon">⚡</span>
+      <span>Pass Étudiant</span>
     </button>
   </nav>
 
